@@ -24,7 +24,7 @@ try:
         length = random.choice([15, 16])  # Randomly choose between 15 or 16 characters
         generated_Did = generate_code(length)
 
-        print("Device id:", generated_Did)
+        print("--> Device id generated !")
 
         def generate_android_user_agent():
             android_versions = ['12', '11', '10', '9', '8', '13', '6', '7', '5', '14']  # List of Android versions
@@ -91,8 +91,8 @@ try:
         with open("main_auth.json", "w") as json_file:
             json.dump({"main_access_JWT": main_access_JWT, "main_refresh_JWT": main_refresh_JWT, "generated_Did": generated_Did, "mobile_no": mobile_no, "User_Agent": User_Agent}, json_file, indent=4)  # Save to JSON file
 
-        print("-> Your mobile number:", mobile_no)
-        print("-> Auth Tokens & Keys saved to 'main_auth.json'")
+        print("--> Your mobile number:", mobile_no)
+        print("--> Auth Tokens & Keys saved to 'main_auth.json'")
 
         # Use the access token in the second request
         app_url = "https://api.wow.lk/superapp-mini-app-authentication-service/application/authentication"
@@ -194,8 +194,8 @@ try:
                 status_code = app_response.status_code
 
                 if app_response.status_code != 201:
-                    print("-> Response code:", app_response.status_code)
-                    print("-> Auth refreshing !")
+                    print("--> Response code:", app_response.status_code)
+                    print("--> Auth refreshing !")
             
                     refresh_url = "https://api.wow.lk/superapp-user-profile-service/user/authenticate"
 
