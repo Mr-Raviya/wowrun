@@ -4,17 +4,17 @@ import json
 import os
 
 try:
-    print("---------- MegaRun Hack by Raviya ----------")
-    print("\nScript Started !\n")
+    print("\n---------> MegaRun Hack by Raviya <---------")
+    print("\n-----> Script Started !\n")
 
     file_path = "main_auth.json"
 
     if not os.path.exists(file_path):
         # File does not exist
-        print(f"File '{file_path}' does not exist.")
+        # print(f"File '{file_path}' does not exist.")
 
         # Prompt the user for authCode
-        auth_code = input("-> Enter the authCode: ")
+        auth_code = input("-> Enter the callback code: ")
 
         def generate_code(length):
             # Generate a random hexadecimal code of the specified length
@@ -29,7 +29,7 @@ try:
         def generate_android_user_agent():
             android_versions = ['12', '11', '10', '9', '8', '13', '6', '7', '5', '14']  # List of Android versions
             device_models = [
-                "GKWS6", "vivo 1904", "Pixel 6", "Galaxy S21", "OnePlus 8", "Redmi Note 10", "Moto G9", "Realme 7", "Pilex 5", "Pixel 7", "Pixel 8", "Galaxy S22", "Galaxy S24", "Galaxy S22 Ultra"
+                "GKWS6", "vivo 1904", "Pixel 6", "Galaxy S21", "OnePlus 8", "Redmi Note 10", "Moto G9", "Realme 7", "Pilex 5", "Pixel 7", "Pixel 8", "Galaxy S22", "Galaxy S24", "Galaxy S22 Ultra", "Pixel 3a", "Pixel 5a", "Pixel 6a", "Pixel 8a"
             ]  # Example device models
             build_numbers = [
                 "W528JS", "PPR1.180610.011", "RQ3A.210905.001", "SP1A.210812.015", "TP1A.221005.002"
@@ -276,4 +276,4 @@ try:
         print("--> Game Tokens saved to 'game_auth.json'")
 
 except KeyboardInterrupt:
-    print("\nThanks for using MegaRun Hack by Raviya.")
+    print("\n")

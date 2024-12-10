@@ -13,31 +13,8 @@ try:
 
     # Use the access_token in your code
     if not game_access_JWT:
-        print("--> Access token not found.")
+        print("\n--> Access token not found.")
         exit()
-
-    results_url = "https://dshl99o7otw46.cloudfront.net/api/game/v1/profile/data"
-
-    results_headers = {
-    'User-Agent': f'{User_Agent}',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'authorization': f'Bearer {game_access_JWT}',
-    'x-requested-with': 'lk.wow.superman',
-    'sec-fetch-site': 'same-origin',
-    'sec-fetch-mode': 'cors',
-    'sec-fetch-dest': 'empty',
-    'referer': 'https://dshl99o7otw46.cloudfront.net/games/9482808f-72c3-43a5-96c4-38c3d3a7673e/build/v19/index.html?platform=pwa&version=200',
-    'accept-language': 'en-US,en;q=0.9',
-    'Connection': 'keep-alive',
-    'Host': 'dshl99o7otw46.cloudfront.net',
-    'accept': '*/*',
-    'Content-Length': '0'
-    }
-
-    results_response = requests.request("GET", results_url, headers=results_headers)
-    results_data = results_response.json()
-
-    total_won = results_data.get("data", {}).get("total_won", 0)
 
     game_url = "https://dshl99o7otw46.cloudfront.net/api/game/v1/game-session/9482808f-72c3-43a5-96c4-38c3d3a7673e"
 
@@ -71,7 +48,7 @@ try:
         print("--> Failed to retieve game token !")
         print(game_response.text)
         exit()
-
+    
     # Extract initial state
     initial_state = game_data.get("data", {}).get("initial_state")
 
@@ -90,19 +67,49 @@ try:
     # Generate the key
     key = gen_key(initial_state)
 
+    results_url = "https://dshl99o7otw46.cloudfront.net/api/game/v1/profile/data"
+
+    results_headers = {
+    'User-Agent': f'{User_Agent}',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'authorization': f'Bearer {game_access_JWT}',
+    'x-requested-with': 'lk.wow.superman',
+    'sec-fetch-site': 'same-origin',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-dest': 'empty',
+    'referer': 'https://dshl99o7otw46.cloudfront.net/games/9482808f-72c3-43a5-96c4-38c3d3a7673e/build/v19/index.html?platform=pwa&version=200',
+    'accept-language': 'en-US,en;q=0.9',
+    'Connection': 'keep-alive',
+    'Host': 'dshl99o7otw46.cloudfront.net',
+    'accept': '*/*',
+    'Content-Length': '0'
+    }
+
+    results_response = requests.request("GET", results_url, headers=results_headers)
+    results_data = results_response.json()
+
+    daily_box = results_data.get("data", {}).get("daily_winning_chances", 0)
+    used_box = results_data.get("data", {}).get("consumed_chances", 0)
+    total_won = results_data.get("data", {}).get("won_data", 0)
+    remain_won = results_data.get("data", {}).get("remaining_data", 0)
+    
+    print("\n----> Game is starting !\n")
+
+    print("-> Daily Chances ", daily_box)
+    print("-> Used Chances  ", used_box)
+    print(f"-> Total WON Data {total_won} MB")
+    print(f"-> Remain to WIN  {remain_won} MB\n")
+
     def show_progress_bar(duration):
         total_steps = 25  # Length of the progress bar
         step_duration = duration / total_steps
         
-        #print("\n")
-        print(f"Waiting ({int(duration)} sec): [", end="", flush=True)
+        print(f"Waiting ({int(duration)} sec) [", end="", flush=True)
         for i in range(total_steps + 1):
             percentage = int((i / total_steps) * 100)
             print("#", end="", flush=True)
             time.sleep(step_duration)
         print(f"] {percentage}% Done!\n")    
-
-    print("\n----> Game is starting !\n")
 
     # Random time delay between 18 and 26 seconds
     time_delay = random.uniform(16, 26)
@@ -110,7 +117,7 @@ try:
     # Show progress bar
     show_progress_bar(time_delay)
 
-    print("----> Game is started !\n")
+    print("\n----> Game is started !\n")
 
     gift_url = f"https://dshl99o7otw46.cloudfront.net/api/game/v1/game-session/random-gift/{game_token}/1"
 
@@ -150,21 +157,48 @@ try:
 
         # Print the response
         game_token = game_data.get("data", {}).get("token")
-        print("---------- MegaRun Hack by Raviya ----------")
+        print("\n---------> MegaRun Hack by Raviya <---------")
         print(f"\nBox {i} Score = {current_score}\n")
         
-        # Extract 'winner' value
-        winner = gift_data.get("data", {}).get("winner")
+        # Extract 'amount' value
         amount = gift_data.get("data", {}).get("amount", 0)
 
         # Print message based on 'winner' value
-        if winner:
-            print(f"-> Congragulation! you have won {amount}MB.")
+        if amount != 0:
+            print(f"-> Congragulation! you have WON {amount} MB")
+
+            results_url = "https://dshl99o7otw46.cloudfront.net/api/game/v1/profile/data"
+
+            results_headers = {
+            'User-Agent': f'{User_Agent}',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'authorization': f'Bearer {game_access_JWT}',
+            'x-requested-with': 'lk.wow.superman',
+            'sec-fetch-site': 'same-origin',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-dest': 'empty',
+            'referer': 'https://dshl99o7otw46.cloudfront.net/games/9482808f-72c3-43a5-96c4-38c3d3a7673e/build/v19/index.html?platform=pwa&version=200',
+            'accept-language': 'en-US,en;q=0.9',
+            'Connection': 'keep-alive',
+            'Host': 'dshl99o7otw46.cloudfront.net',
+            'accept': '*/*',
+            'Content-Length': '0'
+            }
+
+            results_response = requests.request("GET", results_url, headers=results_headers)
+            results_data = results_response.json()
+
+            daily_box = results_data.get("data", {}).get("daily_winning_chances", 0)
+            used_box = results_data.get("data", {}).get("consumed_chances", 0)
+            total_won = results_data.get("data", {}).get("won_data", 0)
+            remain_won = results_data.get("data", {}).get("remaining_data", 0)
+
         else:
-            print("-> Try again!, good luck for next round.")
+            print("-> Try again!, good luck for next round")
         
-        total_won = amount + total_won
-        print(f"-> Total Won Data: {total_won}\n" )
+        print("---> Daily Chances ", daily_box)
+        print("---> Used Chances  ", used_box)
+        print(f"-> Total WON Data   {total_won} MB\n")
 
         # Random time delay between 18 and 26 seconds
         time_delay = random.uniform(16, 26)
