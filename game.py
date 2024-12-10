@@ -128,7 +128,7 @@ try:
             # Initialize the starting score
             current_score = 0
 
-            for i in range(1, 2):  # 1 to 100 for better tracking
+            for i in range(1, 101):  # 1 to 100 for better tracking
                 # Increment score randomly by 5, 10, or 20
                 increment = random.choice([5, 10, 20])
                 current_score += increment
@@ -165,7 +165,7 @@ try:
                 print(f"\nBox {i} Score = {current_score}\n")
                 
                 # Extract 'amount' value
-                amount = gift_data.get("data", {}).get("amount")
+                amount = gift_data.get("data", {}).get("amount", 0)
 
                 # Print message based on 'winner' value
                 if amount != 0:
